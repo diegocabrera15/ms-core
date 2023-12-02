@@ -1,0 +1,24 @@
+service: ms-core
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: provided.al2023
+  architecture: arm64
+
+
+package:
+  individually: true # <- package each function individually, to prevent file name conflicts
+
+
+functions:
+  manageLogs:
+    handler: bootstrap
+    architecture: arm64
+    events:
+      - http:
+          path: /manageLogs
+          method: get
+    package:
+      artifact: bin/manageLogs.zip
